@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { initCoralogix } from '../lib/init-cx';
+import { initCoralogix } from 'init-cx';
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
