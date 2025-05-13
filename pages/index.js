@@ -14,6 +14,15 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
+
+  const simulateClick = () => {
+    const tracer = trace.getTracer('example-tracer');
+    const span = tracer.startSpan('user-click');
+    setTimeout(() => {
+      span.end();
+    }, 100);
+  };
+
   return (
     <>
       <Head>
@@ -22,6 +31,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <div>
+        <h1>Hello Vercel + Coralogix</h1>
+        <button onClick={simulateClick}>Click me</button>
+      </div>
+
       <div
         className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}
       >

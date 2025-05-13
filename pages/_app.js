@@ -1,5 +1,12 @@
-import "@/styles/globals.css";
+import { useEffect } from 'react';
+import { initCoralogix } from '../lib/init-cx';
 
-export default function App({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    initCoralogix();
+  }, []);
+
   return <Component {...pageProps} />;
 }
+
+export default MyApp;
