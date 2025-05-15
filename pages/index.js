@@ -2,8 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import { trace } from '@opentelemetry/api';
-
+import { useEffect, useState } from "react";
+import { trace } from "@opentelemetry/api";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,14 +16,22 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
+  const [apiMessage, setApiMessage] = useState("");
 
   const simulateClick = () => {
-    const tracer = trace.getTracer('example-tracer');
-    const span = tracer.startSpan('user-click');
+    const tracer = trace.getTracer("example-tracer");
+    const span = tracer.startSpan("user-click");
     setTimeout(() => {
       span.end();
     }, 100);
   };
+
+  useEffect(() => {
+    fetch("https://api.chucknorris.io/jokes/random")
+      .then((res) => res.json())
+      .then((data) => setApiMessage(data.message || "No message field in response"))
+      .catch((err) => setApiMessage(`Error: ${err.message}`));
+  }, []);
 
   return (
     <>
@@ -37,6 +45,7 @@ export default function Home() {
       <div>
         <h1>Hello Vercel + Coralogix</h1>
         <button onClick={simulateClick}>Click me</button>
+        <p style={{ marginTop: "1rem" }}>External API says: <strong>{apiMessage}</strong></p>
       </div>
 
       <div
@@ -132,3 +141,4 @@ export default function Home() {
     </>
   );
 }
+
