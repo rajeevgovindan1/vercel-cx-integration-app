@@ -1,0 +1,12 @@
+{
+  "name": "vercel-otel-demo",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@vercel/otel": "^1.0.2"
+  }
+}
+
